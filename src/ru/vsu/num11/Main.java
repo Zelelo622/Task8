@@ -1,29 +1,28 @@
 package ru.vsu.num11;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);;
-        int actionSelection = readInteger("1 to rotate the columns or 2 to rotate the rows: ");
+        Scanner scanner = new Scanner(System.in);
+        int actionSelection = readInteger("1 to rotate the columns or any other number to rotate the rows --> ");
         int n = readInteger("the number of shifts --> ");
-
-        /*try {
+        try {
             scanner = new Scanner(new File(args[0]));
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
-        }*/
-
+        }
         int[][] matrix = readMatrix(scanner);
+        printMatrix(selectsShiftOption(actionSelection, n, matrix));
+    }
+
+    private static int[][] selectsShiftOption(int actionSelection, int n, int[][] matrix) {
         if (actionSelection == 1) {
-            printMatrix(moveColumns(matrix, n));
-        } else if (actionSelection == 2) {
-            printMatrix(moveRows(matrix, n));
+             return moveColumns(matrix, n);
         } else {
-            System.out.println("Incorrect option selected");
+            return moveRows(matrix, n);
         }
     }
 
@@ -54,8 +53,8 @@ public class Main {
     }
 
     private static int[][] readMatrix(Scanner scanner) {
-        int row = readInteger("the number of rows in the matrix --> ");
-        int col = readInteger("the number of columns in the matrix --> ");
+        int row = scanner.nextInt();
+        int col = scanner.nextInt();
         int[][] matrix = new int[row][col];
         System.out.println("Enter the elements of the matrix:");
         for (int r = 0; r < row; r++) {

@@ -1,6 +1,7 @@
 package ru.vsu.num11;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -9,13 +10,23 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int actionSelection = readInteger("1 to rotate the columns or any other number to rotate the rows --> ");
         int n = readInteger("the number of shifts --> ");
+        File file = new File(args[0]);
         try {
-            scanner = new Scanner(new File(args[0]));
+            scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
         int[][] matrix = readMatrix(scanner);
-        printMatrix(selectsShiftOption(actionSelection, n, matrix));
+        int[][] lastMatrix = selectsShiftOption(actionSelection, n, matrix);
+        //printMatrix(selectsShiftOption(actionSelection, n, matrix));
+        try {
+            FileWriter writer = new FileWriter("D:/Coding/Programming/Java/FinishTasks/Task8v1/src/ru/vsu/num11/tests/output1.txt");
+            writer.write(Arrays.deepToString(lastMatrix));
+            writer.close();
+        } catch (IOException exception) {
+            exception.getMessage();
+        }
+
     }
 
     private static int[][] selectsShiftOption(int actionSelection, int n, int[][] matrix) {

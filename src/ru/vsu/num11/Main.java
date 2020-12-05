@@ -1,7 +1,6 @@
 package ru.vsu.num11;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -13,20 +12,17 @@ public class Main {
         File file = new File(args[0]);
         try {
             scanner = new Scanner(file);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException fileNotFoundException) {
             System.out.println("File not found");
         }
         int[][] matrix = readMatrix(scanner);
-        int[][] lastMatrix = selectsShiftOption(actionSelection, n, matrix);
-        //printMatrix(selectsShiftOption(actionSelection, n, matrix));
         try {
-            FileWriter writer = new FileWriter("D:/Coding/Programming/Java/FinishTasks/Task8v1/src/ru/vsu/num11/tests/output1.txt");
-            writer.write(Arrays.deepToString(lastMatrix));
+            FileWriter writer = new FileWriter(args[1]);
+            writer.write(printMatrix(selectsShiftOption(actionSelection, n, matrix)));
             writer.close();
-        } catch (IOException exception) {
-            exception.getMessage();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
-
     }
 
     private static int[][] selectsShiftOption(int actionSelection, int n, int[][] matrix) {
@@ -82,12 +78,16 @@ public class Main {
         return scanner.nextInt();
     }
 
-    private static void printMatrix(int[][] matrix) {
+    private static String printMatrix(int[][] matrix) {
+        String stringMatrix = "";
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 System.out.print(matrix[i][j] + " ");
+                stringMatrix += matrix[i][j] + " ";
             }
             System.out.println();
+            stringMatrix += "\n";
         }
+        return stringMatrix;
     }
 }

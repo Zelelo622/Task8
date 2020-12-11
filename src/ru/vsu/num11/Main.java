@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         int actionSelection = readInteger("1 to rotate the columns or any other number to rotate the rows --> ");
         int n = readInteger("the number of shifts --> ");
@@ -20,8 +20,8 @@ public class Main {
             FileWriter writer = new FileWriter(args[1]);
             writer.write(printMatrix(selectsShiftOption(actionSelection, n, matrix)));
             writer.close();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            System.out.println("No argument was entered");
         }
     }
 

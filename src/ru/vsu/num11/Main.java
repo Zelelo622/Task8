@@ -9,17 +9,16 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int actionSelection = readInteger("1 to rotate the columns or any other number to rotate the rows --> ");
         int n = readInteger("the number of shifts --> ");
-        File file = new File(args[0]);
         try {
-            scanner = new Scanner(file);
-        } catch (FileNotFoundException fileNotFoundException) {
-            System.out.println("File not found");
-        }
-        int[][] matrix = readMatrix(scanner);
-        try {
+            File file = new File(args[0]);
+            try {
+                scanner = new Scanner(file);
+            } catch (FileNotFoundException fileNotFoundException) {
+                System.out.println("File not found");
+            }
+            int[][] matrix = readMatrix(scanner);
             FileWriter writer = new FileWriter(args[1]);
             writer.write(printMatrix(selectsShiftOption(actionSelection, n, matrix)));
-            writer.close();
         } catch (ArrayIndexOutOfBoundsException exception) {
             System.out.println("No argument was entered");
         }
@@ -27,7 +26,7 @@ public class Main {
 
     private static int[][] selectsShiftOption(int actionSelection, int n, int[][] matrix) {
         if (actionSelection == 1) {
-             return moveColumns(matrix, n);
+            return moveColumns(matrix, n);
         } else {
             return moveRows(matrix, n);
         }
